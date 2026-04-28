@@ -1,0 +1,3 @@
+const elenco=[{codigo:'AVH-001',nome:'Rovonilson Reigns Bautista',tipo:'Ator audiovisual completo',funcoes:['Narrador','Apresentador','Artista musical','Presença institucional audiovisual'],idadeBase:54,imagem:'Núcleo de Elenco Heteronímico Mundial SIGMAL',voz:'SIGMAL Voice Engine',producao:'Silos SIGMAL'}];
+
+document.addEventListener('DOMContentLoaded',()=>{const alvo=document.querySelector('[data-elenco]');if(!alvo)return;alvo.innerHTML=elenco.map(p=>`<article class="ficha"><strong>${p.codigo}</strong><h3>${p.nome}</h3><p>${p.tipo}</p><p>${p.funcoes.join(' • ')}</p><p>Idade-base: ${p.idadeBase} anos</p></article>`).join('');});
