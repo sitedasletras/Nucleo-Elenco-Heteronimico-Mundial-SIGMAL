@@ -1,0 +1,24 @@
+{
+  "projeto": "Núcleo de Elenco Heteronímico Mundial SIGMAL",
+  "natureza": "Projeto individual do eixo Site das Letras / SIGMAL",
+  "perfis_autorizados": ["Admin", "Heterônimo", "Wagner Planas"],
+  "espinha_dorsal": ["index.html", "assets", "dados", "perfis", "voz", "silos", "docs"],
+  "elenco": [
+    {
+      "codigo": "AVH-001",
+      "nome": "Rovonilson Reigns Bautista",
+      "tipo": "ator audiovisual completo",
+      "idade_base": 54,
+      "funcoes": [
+        "narrador",
+        "apresentador",
+        "artista musical",
+        "presenca institucional audiovisual"
+      ],
+      "imagem_origem": "Núcleo de Elenco Heteronímico Mundial SIGMAL",
+      "voz_origem": "SIGMAL Voice Engine",
+      "producao": "Silos SIGMAL",
+      "status": "ativo"
+    }
+  ]
+}
