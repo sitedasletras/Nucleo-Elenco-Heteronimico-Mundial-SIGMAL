@@ -1,23 +1,114 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Núcleo de Elenco Heteronímico Mundial SIGMAL</title>
-<link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Núcleo de Elenco Heteronímico Mundial SIGMAL</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-<header>
-<h1>Núcleo de Elenco Heteronímico Mundial SIGMAL</h1>
-<p>Portal institucional do elenco audiovisual heteronímico do Site das Letras / SIGMAL</p>
-</header>
-<main>
-<section>
-<h2>AVH-001 — Rovonilson Reigns Bautista</h2>
-<p>Narrador • Apresentador • Artista musical</p>
-<p>Idade-base: 54 anos</p>
-</section>
-</main>
-<script src="assets/js/app.js"></script>
+  <div class="emergency-gate" id="emergencyGate" aria-label="Porta de emergência">
+    <section class="gate-card">
+      <p class="eyebrow">Porta de emergência</p>
+      <h1>Núcleo de Elenco Heteronímico Mundial SIGMAL</h1>
+      <p>Entrada oficial apenas pelo Celeiro Literário nos perfis autorizados: Admin, Heterônimo ou Wagner Planas.</p>
+      <div class="gate-actions">
+        <button id="btnEmergencyEnter" class="btn btn-primary">Entrar em modo emergência</button>
+      </div>
+      <small>Esta entrada existe somente para manutenção, teste e recuperação técnica.</small>
+    </section>
+  </div>
+
+  <main class="app-shell" id="appShell" hidden>
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="seal">Σ</span>
+        <div>
+          <strong>SIGMAL</strong>
+          <small>Casting Engine</small>
+        </div>
+      </div>
+      <nav>
+        <button data-view="dashboard" class="nav active">Painel</button>
+        <button data-view="avatares" class="nav">Avatares</button>
+        <button data-view="vozes" class="nav">Vozes</button>
+        <button data-view="instrumentos" class="nav">Instrumentos</button>
+        <button data-view="grupos" class="nav">Grupos</button>
+        <button data-view="territorios" class="nav">Territórios</button>
+        <button data-view="matching" class="nav">Matching 90%</button>
+        <button data-view="projetos" class="nav">Projetos</button>
+      </nav>
+      <div class="access-box">
+        <small>Entrada oficial</small>
+        <strong>Celeiro Literário</strong>
+        <span>Admin • Heterônimo • Wagner Planas</span>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Infraestrutura privada</p>
+          <h2 id="viewTitle">Painel Geral</h2>
+        </div>
+        <div class="status-pill">Modo produção</div>
+      </header>
+
+      <section id="dashboard" class="view active">
+        <div class="hero-card">
+          <h3>Espinha dorsal ativa</h3>
+          <p>Este núcleo nasce como módulo privado do Celeiro Literário. A entrada oficial acontece pelo login do Celeiro; esta página mantém apenas uma porta de emergência técnica.</p>
+        </div>
+        <div class="grid cards">
+          <article><strong>AVH</strong><span>Elenco visual e audiovisual</span></article>
+          <article><strong>VoiceMatch</strong><span>Arquétipos vocais e narradores</span></article>
+          <article><strong>Instrumentos</strong><span>Atlas sonoro territorial</span></article>
+          <article><strong>Matching</strong><span>Compatibilidade mínima de 90%</span></article>
+        </div>
+      </section>
+
+      <section id="avatares" class="view">
+        <div class="section-head"><h3>Avatares e elenco</h3><button class="btn">Novo avatar</button></div>
+        <div data-elenco class="list"></div>
+      </section>
+
+      <section id="vozes" class="view">
+        <div class="section-head"><h3>Biblioteca vocal</h3><button class="btn">Novo preset vocal</button></div>
+        <div data-vozes class="list"></div>
+      </section>
+
+      <section id="instrumentos" class="view">
+        <div class="section-head"><h3>Instrumentos-território</h3><button class="btn">Novo instrumento</button></div>
+        <div data-instrumentos class="list"></div>
+      </section>
+
+      <section id="grupos" class="view">
+        <div class="section-head"><h3>Grupos e bandas-avatar</h3><button class="btn">Novo grupo</button></div>
+        <div data-grupos class="list"></div>
+      </section>
+
+      <section id="territorios" class="view">
+        <div class="section-head"><h3>Territórios culturais</h3><button class="btn">Novo território</button></div>
+        <div data-territorios class="list"></div>
+      </section>
+
+      <section id="matching" class="view">
+        <div class="section-head"><h3>Motor de matching</h3><button class="btn btn-primary" id="btnRunMatch">Simular matching</button></div>
+        <div class="match-panel">
+          <label>Voz <select id="matchVoice"></select></label>
+          <label>Instrumento <select id="matchInstrument"></select></label>
+          <label>Território <select id="matchTerritory"></select></label>
+          <div id="matchResult" class="result">Selecione os itens e simule.</div>
+        </div>
+      </section>
+
+      <section id="projetos" class="view">
+        <div class="section-head"><h3>Pacotes persistentes de artista</h3><button class="btn">Novo pacote</button></div>
+        <div data-projetos class="list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
