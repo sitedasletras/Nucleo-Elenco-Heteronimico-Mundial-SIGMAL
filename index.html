@@ -1,114 +1,1109 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Núcleo de Elenco Heteronímico Mundial SIGMAL</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N · Núcleo de Elenco Heteronímico Mundial SIGMAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noite: #07101d;
+  --noite-mid: #0e1e30;
+  --noite-light: #162840;
+  --ouro: #c9a84c;
+  --ouro-claro: #e8cc7a;
+  --ouro-escuro: #8a6a1f;
+  --creme: #f0e6cc;
+  --prata: #8899aa;
+  --vermelho: #8b1a1a;
+  --verde: #1a4a2e;
+  --roxo: #2d1a4a;
+  --branco: #f5f0e8;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--noite);
+  color: var(--creme);
+  font-family: 'IM Fell English', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Proteção de acesso */
+#login-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--noite);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+#login-screen.oculto { display: none; }
+
+.login-selo {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--ouro);
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+.login-titulo {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  color: var(--ouro);
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+.login-subtitulo {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--prata);
+  text-align: center;
+  max-width: 400px;
+  line-height: 1.6;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 300px;
+}
+.login-input {
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.2);
+  color: var(--creme);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  padding: 0.8rem 1rem;
+  letter-spacing: 0.1em;
+  outline: none;
+  transition: border 0.3s;
+}
+.login-input:focus { border-color: var(--ouro); }
+.login-btn {
+  background: linear-gradient(135deg, var(--ouro-escuro), var(--ouro));
+  color: var(--noite);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 0.9rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+.login-btn:hover { opacity: 0.85; }
+.login-erro {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  color: #c0392b;
+  text-align: center;
+  letter-spacing: 0.1em;
+  display: none;
+}
+
+/* ===== TOPO ===== */
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7,16,29,0.97);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(8px);
+}
+.topo-logo {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 1.8rem;
+  color: var(--ouro);
+  letter-spacing: 0.3em;
+}
+.topo-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--prata);
+  opacity: 0.6;
+  text-transform: uppercase;
+  margin-top: 0.1rem;
+}
+.topo-nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+.topo-nav a, .topo-nav button {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  color: var(--prata);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  padding: 0;
+}
+.topo-nav a:hover, .topo-nav button:hover { color: var(--ouro); }
+.topo-nav a.ativo { color: var(--ouro); border-bottom: 1px solid var(--ouro); }
+
+/* ===== TABS ===== */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  padding: 0 2rem;
+  background: var(--noite-mid);
+}
+.tab {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--prata);
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s;
+  margin-bottom: -1px;
+}
+.tab:hover { color: var(--ouro); }
+.tab.ativo { color: var(--ouro); border-bottom-color: var(--ouro); }
+
+/* ===== CONTEÚDO ===== */
+.conteudo { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+.secao { display: none; }
+.secao.ativa { display: block; }
+
+/* ===== CABEÇALHO DE SEÇÃO ===== */
+.sec-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+.sec-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  color: var(--ouro);
+  opacity: 0.5;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.sec-titulo {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 2rem;
+  color: var(--branco);
+  letter-spacing: 0.05em;
+}
+.sec-titulo em { color: var(--ouro); font-style: italic; font-family: 'IM Fell English', serif; }
+
+/* Botão de ação */
+.btn-acao {
+  background: linear-gradient(135deg, var(--ouro-escuro), var(--ouro));
+  color: var(--noite);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+.btn-acao:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-sec {
+  background: transparent;
+  color: var(--ouro);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  padding: 0.7rem 1.5rem;
+  border: 1px solid rgba(201,168,76,0.3);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.btn-sec:hover { border-color: var(--ouro); background: rgba(201,168,76,0.06); }
+
+/* ===== FORMULÁRIO DE IMPORTAÇÃO (FICHA DA MATERNIDADE) ===== */
+.importar-box {
+  background: rgba(14,30,48,0.8);
+  border: 1px solid rgba(201,168,76,0.15);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.importar-titulo {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--ouro);
+  opacity: 0.7;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.form-grupo { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-grupo.full { grid-column: 1 / -1; }
+.form-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  color: var(--prata);
+  opacity: 0.7;
+  text-transform: uppercase;
+}
+.form-input, .form-select, .form-textarea {
+  background: rgba(201,168,76,0.04);
+  border: 1px solid rgba(201,168,76,0.12);
+  color: var(--creme);
+  font-family: 'IM Fell English', serif;
+  font-size: 0.95rem;
+  padding: 0.6rem 0.8rem;
+  outline: none;
+  transition: border 0.3s;
+  width: 100%;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: rgba(201,168,76,0.4);
+}
+.form-select option { background: var(--noite-mid); }
+.form-textarea { resize: vertical; min-height: 80px; }
+.form-acoes { display: flex; gap: 1rem; margin-top: 1.5rem; }
+
+/* ===== GRADE DE ELENCO ===== */
+.elenco-filtros {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.filtro-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: transparent;
+  color: var(--prata);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.filtro-btn:hover, .filtro-btn.ativo {
+  border-color: var(--ouro);
+  color: var(--ouro);
+  background: rgba(201,168,76,0.06);
+}
+
+.elenco-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+.personagem-card {
+  background: var(--noite-mid);
+  border: 1px solid rgba(201,168,76,0.1);
+  overflow: hidden;
+  transition: all 0.35s;
+  position: relative;
+  cursor: pointer;
+}
+.personagem-card:hover {
+  border-color: rgba(201,168,76,0.35);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+
+.card-topo {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.card-topo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+}
+.card-avatar {
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  border: 2px solid rgba(201,168,76,0.3);
+  background: rgba(201,168,76,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  z-index: 1;
+}
+
+/* Cor por ala */
+.ala-drama .card-topo { background: linear-gradient(135deg, #1a0a0a, var(--noite-mid)); }
+.ala-romance .card-topo { background: linear-gradient(135deg, #2d1a4a, var(--noite-mid)); }
+.ala-suspense .card-topo { background: linear-gradient(135deg, #0a1a2d, var(--noite-mid)); }
+.ala-comedia .card-topo { background: linear-gradient(135deg, #1a2d0a, var(--noite-mid)); }
+.ala-acao .card-topo { background: linear-gradient(135deg, #2d1a0a, var(--noite-mid)); }
+.ala-musical .card-topo { background: linear-gradient(135deg, #1a0a2d, var(--noite-mid)); }
+
+.card-corpo { padding: 1.2rem; }
+.card-codigo {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  color: var(--ouro);
+  opacity: 0.5;
+  margin-bottom: 0.3rem;
+}
+.card-nome {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 1.2rem;
+  color: var(--branco);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.05em;
+}
+.card-funcao {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--prata);
+  margin-bottom: 0.8rem;
+}
+.card-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.card-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.48rem;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(201,168,76,0.2);
+  color: rgba(201,168,76,0.6);
+  text-transform: uppercase;
+}
+.card-status {
+  position: absolute;
+  top: 0.8rem; right: 0.8rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.45rem;
+  letter-spacing: 0.15em;
+  padding: 0.2rem 0.5rem;
+  text-transform: uppercase;
+  z-index: 2;
+}
+.status-ativo { background: rgba(26,74,46,0.8); color: #39ff8f; border: 1px solid rgba(57,255,143,0.3); }
+.status-latente { background: rgba(139,26,26,0.8); color: #ff6b6b; border: 1px solid rgba(255,107,107,0.3); }
+.status-formacao { background: rgba(45,26,74,0.8); color: #b39ddb; border: 1px solid rgba(179,157,219,0.3); }
+
+.card-acoes {
+  padding: 0.8rem 1.2rem;
+  border-top: 1px solid rgba(201,168,76,0.08);
+  display: flex;
+  gap: 0.6rem;
+}
+.card-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgba(201,168,76,0.2);
+  background: transparent;
+  color: var(--prata);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.card-btn:hover { color: var(--ouro); border-color: var(--ouro); }
+.card-btn.principal {
+  background: rgba(201,168,76,0.1);
+  color: var(--ouro);
+  border-color: rgba(201,168,76,0.3);
+}
+
+/* ===== MODAL DE FICHA COMPLETA ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(7,16,29,0.92);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  display: none;
+}
+.modal-overlay.aberto { display: flex; }
+.modal {
+  background: var(--noite-mid);
+  border: 1px solid rgba(201,168,76,0.2);
+  width: 100%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.modal-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: var(--noite-mid);
+}
+.modal-titulo {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 1.4rem;
+  color: var(--ouro);
+  letter-spacing: 0.05em;
+}
+.modal-fechar {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--prata);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.modal-corpo { padding: 2rem; }
+.ficha-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.ficha-campo { display: flex; flex-direction: column; gap: 0.3rem; }
+.ficha-campo.full { grid-column: 1/-1; }
+.ficha-rotulo {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  color: var(--ouro);
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+.ficha-valor {
+  font-family: 'IM Fell English', serif;
+  font-size: 0.95rem;
+  color: var(--creme);
+  line-height: 1.5;
+}
+.ficha-valor em { color: var(--ouro); font-style: italic; }
+.modal-acoes {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(201,168,76,0.1);
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ===== REGISTRO CIVIL ===== */
+.registro-box {
+  background: rgba(14,30,48,0.6);
+  border: 1px solid rgba(201,168,76,0.12);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+.registro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.registro-titulo {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 1.1rem;
+  color: var(--ouro);
+  letter-spacing: 0.05em;
+}
+.registro-codigo {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--prata);
+  opacity: 0.6;
+}
+.destinos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.destino-item {
+  background: rgba(201,168,76,0.04);
+  border-left: 2px solid rgba(201,168,76,0.2);
+  padding: 0.8rem 1rem;
+}
+.destino-ala {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  color: var(--ouro);
+  opacity: 0.6;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.destino-local {
+  font-family: 'IM Fell English', serif;
+  font-size: 0.85rem;
+  color: var(--creme);
+  line-height: 1.4;
+}
+
+/* ===== INTEGRAÇÕES ===== */
+.integ-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+.integ-card {
+  background: var(--noite-mid);
+  border: 1px solid rgba(201,168,76,0.1);
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+.integ-card:hover { border-color: rgba(201,168,76,0.3); }
+.integ-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
+.integ-nome {
+  font-family: 'Tenor Sans', sans-serif;
+  font-size: 1rem;
+  color: var(--branco);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.05em;
+}
+.integ-desc {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--prata);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+.integ-status {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  color: var(--ouro);
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+/* ===== VAZIO ===== */
+.estado-vazio {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--prata);
+  opacity: 0.5;
+}
+.estado-vazio-icon { font-size: 3rem; margin-bottom: 1rem; }
+.estado-vazio-texto {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .ficha-grid { grid-template-columns: 1fr; }
+  .destinos-grid { grid-template-columns: 1fr; }
+  .topo { flex-direction: column; gap: 0.8rem; }
+  .conteudo { padding: 1.2rem; }
+}
+</style>
 </head>
 <body>
-  <div class="emergency-gate" id="emergencyGate" aria-label="Porta de emergência">
-    <section class="gate-card">
-      <p class="eyebrow">Porta de emergência</p>
-      <h1>Núcleo de Elenco Heteronímico Mundial SIGMAL</h1>
-      <p>Entrada oficial apenas pelo Celeiro Literário nos perfis autorizados: Admin, Heterônimo ou Wagner Planas.</p>
-      <div class="gate-actions">
-        <button id="btnEmergencyEnter" class="btn btn-primary">Entrar em modo emergência</button>
-      </div>
-      <small>Esta entrada existe somente para manutenção, teste e recuperação técnica.</small>
-    </section>
+
+<!-- ===== TELA DE LOGIN ===== -->
+<div id="login-screen">
+  <div class="login-selo">// ACESSO RESTRITO · REPOSITÓRIO PRIVADO</div>
+  <div class="login-titulo">N</div>
+  <div class="login-subtitulo">Núcleo de Elenco Heteronímico Mundial SIGMAL — estúdio institucional de atores e atrizes heteronímicos audiovisuais permanentes do Site das Letras.</div>
+  <div class="login-form">
+    <input type="password" id="senha-input" class="login-input" placeholder="SENHA DE ACESSO" autocomplete="off">
+    <button class="login-btn" onclick="verificarAcesso()">ENTRAR NO NÚCLEO</button>
+    <div class="login-erro" id="login-erro">// ACESSO NEGADO — CREDENCIAL INVÁLIDA</div>
+  </div>
+</div>
+
+<!-- ===== INTERFACE PRINCIPAL ===== -->
+<div id="app" style="display:none;">
+
+  <!-- TOPO -->
+  <div class="topo">
+    <div>
+      <div class="topo-logo">N</div>
+      <div class="topo-sub">Núcleo de Elenco Heteronímico Mundial SIGMAL</div>
+    </div>
+    <nav class="topo-nav">
+      <a href="#" class="ativo" onclick="irTab('elenco', this)">Elenco</a>
+      <a href="#" onclick="irTab('importar', this)">Importar Ficha</a>
+      <a href="#" onclick="irTab('integracoes', this)">Integrações</a>
+      <button onclick="sair()">Sair</button>
+    </nav>
   </div>
 
-  <main class="app-shell" id="appShell" hidden>
-    <aside class="sidebar">
-      <div class="brand">
-        <span class="seal">Σ</span>
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab ativo" onclick="irTab('elenco', this)">// ELENCO ATIVO</button>
+    <button class="tab" onclick="irTab('importar', this)">// IMPORTAR DA MATERNIDADE</button>
+    <button class="tab" onclick="irTab('registro', this)">// REGISTRO CIVIL</button>
+    <button class="tab" onclick="irTab('integracoes', this)">// INTEGRAÇÕES</button>
+  </div>
+
+  <!-- CONTEÚDO -->
+  <div class="conteudo">
+
+    <!-- ===== ELENCO ===== -->
+    <div class="secao ativa" id="sec-elenco">
+      <div class="sec-header">
         <div>
-          <strong>SIGMAL</strong>
-          <small>Casting Engine</small>
+          <div class="sec-label">// 01 — ELENCO HETERONÍMICO</div>
+          <h2 class="sec-titulo">Personagens <em>Ativos</em></h2>
+        </div>
+        <button class="btn-acao" onclick="irTab('importar')">+ IMPORTAR DA MATERNIDADE</button>
+      </div>
+
+      <!-- Filtros -->
+      <div class="elenco-filtros">
+        <button class="filtro-btn ativo" onclick="filtrar('todos', this)">TODOS</button>
+        <button class="filtro-btn" onclick="filtrar('drama', this)">DRAMA</button>
+        <button class="filtro-btn" onclick="filtrar('romance', this)">ROMANCE</button>
+        <button class="filtro-btn" onclick="filtrar('suspense', this)">SUSPENSE & NOIR</button>
+        <button class="filtro-btn" onclick="filtrar('comedia', this)">COMÉDIA</button>
+        <button class="filtro-btn" onclick="filtrar('acao', this)">AÇÃO</button>
+        <button class="filtro-btn" onclick="filtrar('musical', this)">MUSICAL</button>
+      </div>
+
+      <!-- Grade de personagens -->
+      <div class="elenco-grade" id="grade-elenco">
+        <div class="estado-vazio" style="grid-column:1/-1;">
+          <div class="estado-vazio-icon">🎭</div>
+          <div class="estado-vazio-texto">Nenhum personagem registrado ainda.<br>Importe fichas visuais/3D da Maternidade dos Heterônimos para começar.</div>
         </div>
       </div>
-      <nav>
-        <button data-view="dashboard" class="nav active">Painel</button>
-        <button data-view="avatares" class="nav">Avatares</button>
-        <button data-view="vozes" class="nav">Vozes</button>
-        <button data-view="instrumentos" class="nav">Instrumentos</button>
-        <button data-view="grupos" class="nav">Grupos</button>
-        <button data-view="territorios" class="nav">Territórios</button>
-        <button data-view="matching" class="nav">Matching 90%</button>
-        <button data-view="projetos" class="nav">Projetos</button>
-      </nav>
-      <div class="access-box">
-        <small>Entrada oficial</small>
-        <strong>Celeiro Literário</strong>
-        <span>Admin • Heterônimo • Wagner Planas</span>
-      </div>
-    </aside>
+    </div>
 
-    <section class="workspace">
-      <header class="topbar">
+    <!-- ===== IMPORTAR DA MATERNIDADE ===== -->
+    <div class="secao" id="sec-importar">
+      <div class="sec-header">
         <div>
-          <p class="eyebrow">Infraestrutura privada</p>
-          <h2 id="viewTitle">Painel Geral</h2>
+          <div class="sec-label">// 02 — IMPORTAÇÃO</div>
+          <h2 class="sec-titulo">Ficha da <em>Maternidade</em></h2>
         </div>
-        <div class="status-pill">Modo produção</div>
-      </header>
+      </div>
 
-      <section id="dashboard" class="view active">
-        <div class="hero-card">
-          <h3>Espinha dorsal ativa</h3>
-          <p>Este núcleo nasce como módulo privado do Celeiro Literário. A entrada oficial acontece pelo login do Celeiro; esta página mantém apenas uma porta de emergência técnica.</p>
+      <div class="importar-box">
+        <div class="importar-titulo">// FICHA VISUAL / 3D — EXPORTADA DA MATERNIDADE DOS HETERÔNIMOS</div>
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label class="form-label">Código de Registro (Maternidade)</label>
+            <input type="text" class="form-input" id="f-codigo" placeholder="ex: HTR-2024-001">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Nome do Personagem</label>
+            <input type="text" class="form-input" id="f-nome" placeholder="Nome artístico completo">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Rosto-Base / Referência Visual</label>
+            <input type="text" class="form-input" id="f-rosto" placeholder="Descrição ou referência de rosto-base">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Biótipo</label>
+            <input type="text" class="form-input" id="f-biotipo" placeholder="ex: esguio, atlético, robusto...">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Idade Aparente</label>
+            <input type="text" class="form-input" id="f-idade" placeholder="ex: 28-35 anos">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Território Estético</label>
+            <input type="text" class="form-input" id="f-territorio" placeholder="ex: noir europeu, realismo brasileiro...">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Figurino-Base</label>
+            <input type="text" class="form-input" id="f-figurino" placeholder="Descrição do estilo visual/figurino">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Função Audiovisual</label>
+            <select class="form-select" id="f-funcao">
+              <option value="">Selecionar função...</option>
+              <option>Protagonista</option>
+              <option>Antagonista</option>
+              <option>Coadjuvante</option>
+              <option>Narrador</option>
+              <option>Performer</option>
+              <option>Condutor de Série</option>
+              <option>Apresentador</option>
+              <option>Híbrido (ator + cantor)</option>
+            </select>
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Ala Principal</label>
+            <select class="form-select" id="f-ala">
+              <option value="">Selecionar ala...</option>
+              <option value="drama">Drama</option>
+              <option value="romance">Romance</option>
+              <option value="suspense">Suspense & Noir</option>
+              <option value="comedia">Comédia & Sátira</option>
+              <option value="acao">Ação & Aventura</option>
+              <option value="musical">Musical & Poético</option>
+            </select>
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Voz Associada (se houver)</label>
+            <input type="text" class="form-input" id="f-voz" placeholder="Nome do heterônimo sonoro associado">
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Status</label>
+            <select class="form-select" id="f-status">
+              <option value="ativo">Ativo</option>
+              <option value="latente">Latente</option>
+              <option value="formacao">Em Formação</option>
+            </select>
+          </div>
+          <div class="form-grupo">
+            <label class="form-label">Destinos</label>
+            <input type="text" class="form-input" id="f-destinos" placeholder="ex: Silo Cinematográfico, Web TV, HQ">
+          </div>
+          <div class="form-grupo full">
+            <label class="form-label">Observações / Notas Internas</label>
+            <textarea class="form-textarea" id="f-obs" placeholder="Notas de direção, restrições, projetos associados..."></textarea>
+          </div>
         </div>
-        <div class="grid cards">
-          <article><strong>AVH</strong><span>Elenco visual e audiovisual</span></article>
-          <article><strong>VoiceMatch</strong><span>Arquétipos vocais e narradores</span></article>
-          <article><strong>Instrumentos</strong><span>Atlas sonoro territorial</span></article>
-          <article><strong>Matching</strong><span>Compatibilidade mínima de 90%</span></article>
+        <div class="form-acoes">
+          <button class="btn-acao" onclick="registrarPersonagem()">REGISTRAR NO NÚCLEO</button>
+          <button class="btn-sec" onclick="limparForm()">LIMPAR</button>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <section id="avatares" class="view">
-        <div class="section-head"><h3>Avatares e elenco</h3><button class="btn">Novo avatar</button></div>
-        <div data-elenco class="list"></div>
-      </section>
-
-      <section id="vozes" class="view">
-        <div class="section-head"><h3>Biblioteca vocal</h3><button class="btn">Novo preset vocal</button></div>
-        <div data-vozes class="list"></div>
-      </section>
-
-      <section id="instrumentos" class="view">
-        <div class="section-head"><h3>Instrumentos-território</h3><button class="btn">Novo instrumento</button></div>
-        <div data-instrumentos class="list"></div>
-      </section>
-
-      <section id="grupos" class="view">
-        <div class="section-head"><h3>Grupos e bandas-avatar</h3><button class="btn">Novo grupo</button></div>
-        <div data-grupos class="list"></div>
-      </section>
-
-      <section id="territorios" class="view">
-        <div class="section-head"><h3>Territórios culturais</h3><button class="btn">Novo território</button></div>
-        <div data-territorios class="list"></div>
-      </section>
-
-      <section id="matching" class="view">
-        <div class="section-head"><h3>Motor de matching</h3><button class="btn btn-primary" id="btnRunMatch">Simular matching</button></div>
-        <div class="match-panel">
-          <label>Voz <select id="matchVoice"></select></label>
-          <label>Instrumento <select id="matchInstrument"></select></label>
-          <label>Território <select id="matchTerritory"></select></label>
-          <div id="matchResult" class="result">Selecione os itens e simule.</div>
+    <!-- ===== REGISTRO CIVIL ===== -->
+    <div class="secao" id="sec-registro">
+      <div class="sec-header">
+        <div>
+          <div class="sec-label">// 03 — REGISTRO CIVIL</div>
+          <h2 class="sec-titulo">Registro <em>Central</em></h2>
         </div>
-      </section>
+      </div>
 
-      <section id="projetos" class="view">
-        <div class="section-head"><h3>Pacotes persistentes de artista</h3><button class="btn">Novo pacote</button></div>
-        <div data-projetos class="list"></div>
-      </section>
-    </section>
-  </main>
+      <div class="registro-box">
+        <div class="registro-header">
+          <div class="registro-titulo">Registro Civil Heteronímico Central</div>
+          <div class="registro-codigo">VERSÃO 1.0 · MATERNIDADE DOS HETERÔNIMOS</div>
+        </div>
+        <p style="font-style:italic; color:var(--prata); font-size:0.9rem; line-height:1.7; margin-bottom:1.5rem;">
+          Nenhum módulo cria identidade isolada. Toda identidade nasce na Maternidade dos Heterônimos e os demais módulos recebem fichas funcionais derivadas.
+        </p>
+        <div class="destinos-grid">
+          <div class="destino-item">
+            <div class="destino-ala">ALA LITERÁRIA</div>
+            <div class="destino-local">OHE-Peçanha · Lapidar</div>
+          </div>
+          <div class="destino-item">
+            <div class="destino-ala">ALA SONORA</div>
+            <div class="destino-local">SIGMAL Music · Silo Sonoro · Silo Music</div>
+          </div>
+          <div class="destino-item">
+            <div class="destino-ala">ALA VISUAL / 3D</div>
+            <div class="destino-local">Núcleo N · Silo Cinematográfico · Web TV · HQ</div>
+          </div>
+        </div>
+      </div>
 
-  <script src="assets/js/app.js"></script>
+      <div class="registro-box">
+        <div class="registro-titulo" style="margin-bottom:1rem;">Regra de Exportação</div>
+        <p style="font-style:italic; color:var(--prata); font-size:0.9rem; line-height:1.7; margin-bottom:1rem;">
+          Uma única Maternidade. Três berçários especializados. Cada berçário gera seu próprio arquivo de download, mas todos permanecem ligados ao mesmo registro central de identidade heteronômica.
+        </p>
+        <p style="font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; color:var(--ouro); opacity:0.7; line-height:1.8;">
+          IDENTIDADE ÚNICA · MANIFESTAÇÕES MÚLTIPLAS · DOWNLOADS SEPARADOS · REGISTRO CENTRAL PRESERVADO
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== INTEGRAÇÕES ===== -->
+    <div class="secao" id="sec-integracoes">
+      <div class="sec-header">
+        <div>
+          <div class="sec-label">// 04 — INTEGRAÇÕES</div>
+          <h2 class="sec-titulo">Conexões do <em>Núcleo</em></h2>
+        </div>
+      </div>
+
+      <div class="integ-grid">
+        <div class="integ-card">
+          <div class="integ-icon">🏛️</div>
+          <div class="integ-nome">Maternidade dos Heterônimos</div>
+          <p class="integ-desc">Origem de todos os personagens. Toda ficha visual/3D importada aqui nasce na Maternidade — OHE-Peçanha.</p>
+          <div class="integ-status">// ORIGEM CENTRAL</div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-icon">🎬</div>
+          <div class="integ-nome">Silo Cinematográfico</div>
+          <p class="integ-desc">Destino primário das produções audiovisuais. Clipes, séries e conteúdo visual do Núcleo chegam e vivem no Silo.</p>
+          <div class="integ-status">// DESTINO VISUAL</div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-icon">📺</div>
+          <div class="integ-nome">Web TV Celeiro</div>
+          <p class="integ-desc">Canal de veiculação institucional. Os personagens do Núcleo conduzem programas, séries e produções da Web TV.</p>
+          <div class="integ-status">// CANAL INSTITUCIONAL</div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-icon">🎵</div>
+          <div class="integ-nome">SIGMAL Music</div>
+          <p class="integ-desc">Universo irmão. Quando um personagem visual tem voz associada, a parceria com SIGMAL Music gera clipes e musicais.</p>
+          <div class="integ-status">// UNIVERSO IRMÃO</div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-icon">📚</div>
+          <div class="integ-nome">Silo Multimídia · BPL</div>
+          <p class="integ-desc">Vitrine pública dos personagens — sem revelar a estrutura interna. O público vê o artista, nunca o Núcleo.</p>
+          <div class="integ-status">// VITRINE PÚBLICA</div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-icon">✒️</div>
+          <div class="integ-nome">Lapidar</div>
+          <p class="integ-desc">Pipeline editorial. Personagens com ala literária ativa entram no Lapidar para produção e publicação de obras.</p>
+          <div class="integ-status">// PIPELINE EDITORIAL</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /conteudo -->
+</div><!-- /app -->
+
+<!-- ===== MODAL DE FICHA ===== -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-titulo" id="modal-nome">—</div>
+      <button class="modal-fechar" onclick="fecharModal()">// FECHAR</button>
+    </div>
+    <div class="modal-corpo">
+      <div class="ficha-grid" id="modal-ficha"></div>
+    </div>
+    <div class="modal-acoes" id="modal-acoes"></div>
+  </div>
+</div>
+
+<script>
+// ===== SENHA =====
+const SENHA = 'nucleo2024'; // Altere para sua senha real
+
+function verificarAcesso() {
+  const input = document.getElementById('senha-input').value;
+  if (input === SENHA) {
+    document.getElementById('login-screen').classList.add('oculto');
+    document.getElementById('app').style.display = 'block';
+    localStorage.setItem('nucleo_login', '1');
+  } else {
+    document.getElementById('login-erro').style.display = 'block';
+    document.getElementById('senha-input').value = '';
+  }
+}
+
+// Enter para login
+document.getElementById('senha-input')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') verificarAcesso();
+});
+
+// Verificar se já está logado
+if (localStorage.getItem('nucleo_login') === '1') {
+  document.getElementById('login-screen').classList.add('oculto');
+  document.getElementById('app').style.display = 'block';
+}
+
+function sair() {
+  localStorage.removeItem('nucleo_login');
+  location.reload();
+}
+
+// ===== TABS =====
+function irTab(id, el) {
+  document.querySelectorAll('.secao').forEach(s => s.classList.remove('ativa'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('ativo'));
+  document.querySelectorAll('.topo-nav a').forEach(a => a.classList.remove('ativo'));
+  document.getElementById('sec-' + id)?.classList.add('ativa');
+  if (el) el.classList.add('ativo');
+}
+
+// ===== ELENCO =====
+let personagens = JSON.parse(localStorage.getItem('nucleo_personagens') || '[]');
+
+function salvar() {
+  localStorage.setItem('nucleo_personagens', JSON.stringify(personagens));
+}
+
+function renderizarElenco(filtro = 'todos') {
+  const grade = document.getElementById('grade-elenco');
+  const lista = filtro === 'todos' ? personagens : personagens.filter(p => p.ala === filtro);
+
+  if (lista.length === 0) {
+    grade.innerHTML = `<div class="estado-vazio" style="grid-column:1/-1;">
+      <div class="estado-vazio-icon">🎭</div>
+      <div class="estado-vazio-texto">Nenhum personagem encontrado.<br>Importe fichas visuais/3D da Maternidade dos Heterônimos para começar.</div>
+    </div>`;
+    return;
+  }
+
+  grade.innerHTML = lista.map((p, i) => `
+    <div class="personagem-card ala-${p.ala || 'drama'}">
+      <span class="card-status status-${p.status || 'ativo'}">${p.status || 'ativo'}</span>
+      <div class="card-topo">
+        <div class="card-avatar">🎭</div>
+      </div>
+      <div class="card-corpo">
+        <div class="card-codigo">${p.codigo || '—'}</div>
+        <div class="card-nome">${p.nome}</div>
+        <div class="card-funcao">${p.funcao || 'Função não definida'}</div>
+        <div class="card-tags">
+          ${p.ala ? `<span class="card-tag">${p.ala}</span>` : ''}
+          ${p.territorio ? `<span class="card-tag">${p.territorio}</span>` : ''}
+        </div>
+      </div>
+      <div class="card-acoes">
+        <button class="card-btn principal" onclick="abrirModal(${i})">VER FICHA</button>
+        <button class="card-btn" onclick="exportarFicha(${i})">EXPORTAR</button>
+        <button class="card-btn" onclick="remover(${i})">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filtrar(ala, btn) {
+  document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  renderizarElenco(ala);
+}
+
+function registrarPersonagem() {
+  const nome = document.getElementById('f-nome').value.trim();
+  if (!nome) { alert('Nome do personagem é obrigatório.'); return; }
+
+  const p = {
+    codigo: document.getElementById('f-codigo').value.trim(),
+    nome,
+    rosto: document.getElementById('f-rosto').value.trim(),
+    biotipo: document.getElementById('f-biotipo').value.trim(),
+    idade: document.getElementById('f-idade').value.trim(),
+    territorio: document.getElementById('f-territorio').value.trim(),
+    figurino: document.getElementById('f-figurino').value.trim(),
+    funcao: document.getElementById('f-funcao').value,
+    ala: document.getElementById('f-ala').value,
+    voz: document.getElementById('f-voz').value.trim(),
+    status: document.getElementById('f-status').value,
+    destinos: document.getElementById('f-destinos').value.trim(),
+    obs: document.getElementById('f-obs').value.trim(),
+    data_registro: new Date().toLocaleDateString('pt-BR')
+  };
+
+  personagens.push(p);
+  salvar();
+  limparForm();
+  renderizarElenco();
+  irTab('elenco');
+  alert(`✓ ${nome} registrado no Núcleo.`);
+}
+
+function limparForm() {
+  ['f-codigo','f-nome','f-rosto','f-biotipo','f-idade','f-territorio',
+   'f-figurino','f-voz','f-destinos','f-obs'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('f-funcao').value = '';
+  document.getElementById('f-ala').value = '';
+  document.getElementById('f-status').value = 'ativo';
+}
+
+function remover(i) {
+  if (!confirm(`Remover "${personagens[i].nome}" do Núcleo?`)) return;
+  personagens.splice(i, 1);
+  salvar();
+  renderizarElenco();
+}
+
+// ===== MODAL =====
+function abrirModal(i) {
+  const p = personagens[i];
+  document.getElementById('modal-nome').textContent = p.nome;
+  document.getElementById('modal-ficha').innerHTML = `
+    <div class="ficha-campo"><div class="ficha-rotulo">Código</div><div class="ficha-valor">${p.codigo || '—'}</div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Data de Registro</div><div class="ficha-valor">${p.data_registro || '—'}</div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Rosto-Base</div><div class="ficha-valor">${p.rosto || '—'}</div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Biótipo</div><div class="ficha-valor">${p.biotipo || '—'}</div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Idade Aparente</div><div class="ficha-valor">${p.idade || '—'}</div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Território Estético</div><div class="ficha-valor">${p.territorio || '—'}</div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Figurino-Base</div><div class="ficha-valor">${p.figurino || '—'}</div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Função Audiovisual</div><div class="ficha-valor">${p.funcao || '—'}</div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Ala Principal</div><div class="ficha-valor">${p.ala || '—'}</div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Voz Associada</div><div class="ficha-valor">${p.voz || '—'}</div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Status</div><div class="ficha-valor"><em>${p.status || '—'}</em></div></div>
+    <div class="ficha-campo"><div class="ficha-rotulo">Destinos</div><div class="ficha-valor">${p.destinos || '—'}</div></div>
+    <div class="ficha-campo full"><div class="ficha-rotulo">Observações</div><div class="ficha-valor">${p.obs || '—'}</div></div>
+  `;
+  document.getElementById('modal-acoes').innerHTML = `
+    <button class="btn-acao" onclick="exportarFicha(${i})">EXPORTAR FICHA 3D</button>
+    <button class="btn-sec" onclick="fecharModal()">FECHAR</button>
+  `;
+  document.getElementById('modal').classList.add('aberto');
+}
+
+function fecharModal() {
+  document.getElementById('modal').classList.remove('aberto');
+}
+
+// ===== EXPORTAR =====
+function exportarFicha(i) {
+  const p = personagens[i];
+  const ficha = {
+    tipo: 'ficha_visual_3d',
+    origem: 'Nucleo_Elenco_SIGMAL',
+    exportado_em: new Date().toISOString(),
+    ...p
+  };
+  const blob = new Blob([JSON.stringify(ficha, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `ficha_visual_${p.nome.replace(/\s+/g,'_').toLowerCase()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Init
+renderizarElenco();
+</script>
 </body>
 </html>
